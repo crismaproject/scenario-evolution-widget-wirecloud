@@ -1,0 +1,102 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7 expandfull"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8 expandfull"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9 expandfull"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js expandfull" style="width: 100%; height: 100%;"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Scenario Evolution Worldstates</title>
+        <meta name="description" content="The evolution of worldstates of a specific scenario">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/world_leaf_16.png"/>
+
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="bower_components/scenario-evolution-widget-angular/dist/styles/scenario-evolution-widget-angular.css" />
+        <!-- endbower -->
+        
+        <style type="text/css">
+            #cont > span {
+                height: 0px;
+                padding: 0px;
+                margin: 0px;
+            }
+/*            #cont > span > ol:before {
+                content: url(images/world_leaf_16.png);
+            }*/
+            #cont > span > ol{
+                padding: 0px;
+                margin: 0px;
+            }
+            
+            
+        </style>
+    </head>
+    <body style="padding: 0px; width: 100%; height: 100%;" ng-app="de.cismet.crisma.widgets.scenarioEvolutionWidgetWirecloud">
+        <!--[if lt IE 7]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <div class="well well-sm" ng-controller="de.cismet.crisma.widgets.scenarioEvolutionWidgetWirecloud.wire" style="width: 100%; height: 100%;">
+            <div id="cont">
+                <scenario-evolution-widget class="breadcrumb" input-worldstate="activeWS" selected-worldstate="changeWS">
+            </div>
+        </div>
+
+        <!--[if lt IE 9]>
+        <script src="bower_components/es5-shim/es5-shim.js"></script>
+        <script src="bower_components/json3/lib/json3.min.js"></script>
+        <![endif]-->
+
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/icmm_js/dist/scripts/icmm_js.js"></script>
+        <script src="bower_components/cids-node-path-widget/dist/scripts/cids-node-path-widget.js"></script>
+        <script src="bower_components/cids-node-path-widget/dist/scripts/cids-node-path-widget-tpl.js"></script>
+        <script src="bower_components/scenario-evolution-widget-angular/dist/scripts/scenario-evolution-widget-angular.js"></script>
+        <script src="bower_components/scenario-evolution-widget-angular/dist/scripts/scenario-evolution-widget-angular-tpl.js"></script>
+        <!-- endbower -->
+
+        <!-- build:js({.tmp,app}) scripts/crisma-scenario-list-widget-wirecloud.min.js -->
+        <script src="scripts/wire.js"></script>
+        <!-- endbuild -->
+        <script type="text/javascript" >
+            MashupPlatform = {
+                prefs: {
+                    get: function (c) {
+                        var props = {
+                            'DEBUG': 'false',
+                            'CRISMA_DOMAIN': 'CRISMA',
+                            'CRISMA_ICMM_API': 'http://crisma.cismet.de/icmm_api',
+                        };
+                        return props[c];
+                    }
+                },
+                wiring: {
+                    registerCallback: function (name, func) {
+                        console.log("registerCallback: [name=" + name + "]");
+                        MashupPlatform[name] = func;
+                    },
+                    pushEvent: function (name, value) {
+                        console.log("pushEvent: [name=" + name + "|value=" + value + "]");
+                        try {
+                            MashupPlatform[name](value);
+                        } catch(e) {
+                            
+                        }
+                    }
+                }
+            };
+            
+    window.setTimeout(function() {
+                console.log("push ws");
+//                $.getJSON('http://crisma.cismet.de/pilotE/icmm_api/CRISMA.worldstates/3?omitNullValues=true&deduplicate=true', function (data) {
+                    MashupPlatform.wiring.pushEvent("setActiveWorldstate", "58");
+//                })
+            }, 2000);
+        </script>
+    </body>
+</html>
