@@ -1,4 +1,4 @@
-scenario-evolution-widget-wirecloud
+scenario-evolution-widget-wirecloud [![Build Status](http://ci.cismet.de/buildStatus/icon?job=scenario-evolution-widget-wirecloud)](https://ci.cismet.de/view/html5%20javascript/job/scenario-evolution-widget-wirecloud/)
 ==============================
 
 Wrapper of the [Scenario Evolution Widget (AngularJS)](https://github.com/crismaproject/scenario-evolution-widget-angular) to make it available on WireCloud.
